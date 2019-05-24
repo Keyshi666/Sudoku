@@ -1,20 +1,32 @@
 package sudoku.view;
-import javax.swing.*;
-import java.awt.*;
+
+import java.awt.BorderLayout;
+import javax.swing.JFrame;
 import javax.swing.UIManager;
+import sudoku.model.Game;
 
-
+/**
+ * Main class of program.
+ *
+ * @author Eric Beijer
+ */
 public class Sudoku extends JFrame {
     public Sudoku() {
         super("Sudoku");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         getContentPane().setLayout(new BorderLayout());
 
+        Game game = new Game();
+
         ButtonPanel buttonPanel = new ButtonPanel();
         add(buttonPanel, BorderLayout.EAST);
 
         SudokuPanel sudokuPanel = new SudokuPanel();
+        sudokuPanel.setGame(game);
         add(sudokuPanel, BorderLayout.CENTER);
+
+        game.addObserver(buttonPanel);
+        game.addObserver(sudokuPanel);
 
         pack();
         setLocationRelativeTo(null);
@@ -27,6 +39,7 @@ public class Sudoku extends JFrame {
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
+        // Use System Look and Feel
         try { UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); }
         catch (Exception ex) { ex.printStackTrace(); }
         new Sudoku();

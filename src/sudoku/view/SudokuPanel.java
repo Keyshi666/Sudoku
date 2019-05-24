@@ -1,8 +1,14 @@
 package sudoku.view;
-import javax.swing.*;
-import java.awt.*;
+
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+import sudoku.model.Game;
+import sudoku.model.UpdateAction;
+
 
 /**
  * This class draws the sudoku panel and reacts to updates from the model.
@@ -47,6 +53,70 @@ public class SudokuPanel extends JPanel implements Observer {
      * @param arg   The UpdateAction.
      */
     public void update(Observable o, Object arg) {
-
+        switch ((UpdateAction)arg) {
+            case NEW_GAME:
+                setGame((Game)o);
+                break;
+            case CHECK:
+                setGameCheck((Game)o);
+                break;
+            case SELECTED_NUMBER:
+            case CANDIDATES:
+            case HELP:
+                setCandidates((Game)o);
+                break;
+        }
     }
+
+    /**
+     * Sets the fields corresponding to given game.
+     *
+     * @param game  Game to be set.
+     */
+    public void setGame(Game game) {
+        for (int y = 0; y < 9; y++) {
+            for (int x = 0; x < 9; x++) {
+                fields[y][x].setBackground(Color.WHITE);
+                fields[y][x].setNumber(game.getNumber(x, y), false);
+            }
+        }
+    }
+
+    /**
+     * Sets fields validity according to given game.
+     *
+     * @param game  Current game.
+     */
+    private void setGameCheck(Game game) {
+        for (int y = 0; y < 9; y++) {
+            for (int x = 0; x < 9; x++) {
+                fields[y][x].setBackground(Color.WHITE);
+                if (fields[y][x].getForeground().equals(Color.BLUE))
+                    fields[y][x].setBackground(game.isCheckValid(x, y) ? Color.GREEN : Color.RED);
+            }
+        }
+    }
+
+    /**
+     * Shows the candidates according to given game.
+     *
+     * @param game  Current game.
+     */
+
+    private void setCandidates(Game game) {
+        for (int y = 0; y < 9; y++) {
+            for (int x = 0; x < 9; x++) {
+                fields[y][x].setBackground(Color.WHITE);
+                if (game.isHelp() && game.isSelectedNumberCandidate(x, y))
+                    fields[y][x].setBackground(COLOR_CANDIDATE);
+            }
+        }
+    }
+
+    /**
+     * Adds controller to all sub panels.
+     *
+     * @param sudokuController  Controller which controls all user actions.
+     */
+
 }
