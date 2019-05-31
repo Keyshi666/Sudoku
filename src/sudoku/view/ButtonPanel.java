@@ -15,20 +15,12 @@ import javax.swing.JToggleButton;
 import sudoku.controller.ButtonController;
 import sudoku.model.UpdateAction;
 
-/**
- * This class draws the button panel and reacts to updates from the model.
- *
- * @author Eric Beijer
- */
 public class ButtonPanel extends JPanel implements Observer {
     JButton btnNew, btnCheck, btnExit;   // Used buttons.
     JCheckBox cbHelp;               // Used check box.
     ButtonGroup bgNumbers;          // Group for grouping the toggle buttons.
     JToggleButton[] btnNumbers;     // Used toggle buttons.
 
-    /**
-     * Constructs the panel and arranges all components.
-     */
     public ButtonPanel() {
         super(new BorderLayout());
 
@@ -77,13 +69,6 @@ public class ButtonPanel extends JPanel implements Observer {
             pnlNumbersNumbers.add(btnNumbers[i]);
         }
     }
-
-    /**
-     * Method called when model sends update notification.
-     *
-     * @param o     The model.
-     * @param arg   The UpdateAction.
-     */
     public void update(Observable o, Object arg) {
         switch ((UpdateAction)arg) {
             case NEW_GAME:
@@ -92,12 +77,6 @@ public class ButtonPanel extends JPanel implements Observer {
                 break;
         }
     }
-
-    /**
-     * Adds controller to all components.
-     *
-     * @param buttonController  Controller which controls all user actions.
-     */
     public void setController(ButtonController buttonController) {
         btnNew.addActionListener(buttonController);
         btnCheck.addActionListener(buttonController);

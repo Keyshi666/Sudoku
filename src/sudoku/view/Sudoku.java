@@ -6,11 +6,7 @@ import sudoku.controller.ButtonController;
 import sudoku.controller.SudokuController;
 import sudoku.model.Game;
 
-/**
- * Main class of program.
- *
- * @author Eric Beijer
- */
+
 public class Sudoku extends JFrame {
     public Sudoku() {
         super("Sudoku");
@@ -38,11 +34,7 @@ public class Sudoku extends JFrame {
         setVisible(true);
     }
 
-    /**
-     * Main entry point of program.
-     *
-     * @param args Command line arguments.
-     */
+
     public static void main(String[] args) {
         // Use System Look and Feel
         try { UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); }
