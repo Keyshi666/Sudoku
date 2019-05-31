@@ -1,8 +1,19 @@
 package sudoku.view;
-import javax.swing.*;
-import java.awt.*;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JPanel;
+import javax.swing.JToggleButton;
+import sudoku.controller.ButtonController;
+import sudoku.model.UpdateAction;
 
 /**
  * This class draws the button panel and reacts to updates from the model.
@@ -26,30 +37,30 @@ public class ButtonPanel extends JPanel implements Observer {
         add(pnlAlign, BorderLayout.NORTH);
 
         JPanel pnlOptions = new JPanel(new FlowLayout(FlowLayout.LEADING));
-        pnlOptions.setBorder(BorderFactory.createTitledBorder(" Options "));
+        pnlOptions.setBorder(BorderFactory.createTitledBorder(" Параметры "));
         pnlAlign.add(pnlOptions);
 
-        btnNew = new JButton("New");
+        btnNew = new JButton("Новая игра");
         btnNew.setFocusable(false);
         pnlOptions.add(btnNew);
 
-        btnCheck = new JButton("Check");
+        btnCheck = new JButton("Проверить");
         btnCheck.setFocusable(false);
         pnlOptions.add(btnCheck);
 
-        btnExit = new JButton("Exit");
+        btnExit = new JButton("Выход");
         btnExit.setFocusable(false);
         pnlOptions.add(btnExit);
 
         JPanel pnlNumbers = new JPanel();
         pnlNumbers.setLayout(new BoxLayout(pnlNumbers, BoxLayout.PAGE_AXIS));
-        pnlNumbers.setBorder(BorderFactory.createTitledBorder(" Numbers "));
+        pnlNumbers.setBorder(BorderFactory.createTitledBorder(" Цифры "));
         pnlAlign.add(pnlNumbers);
 
         JPanel pnlNumbersHelp = new JPanel(new FlowLayout(FlowLayout.LEADING));
         pnlNumbers.add(pnlNumbersHelp);
 
-        cbHelp = new JCheckBox("Help on", true);
+        cbHelp = new JCheckBox("Помощь", true);
         cbHelp.setFocusable(false);
         pnlNumbersHelp.add(cbHelp);
 
@@ -67,8 +78,32 @@ public class ButtonPanel extends JPanel implements Observer {
         }
     }
 
-    @Override
+    /**
+     * Method called when model sends update notification.
+     *
+     * @param o     The model.
+     * @param arg   The UpdateAction.
+     */
     public void update(Observable o, Object arg) {
+        switch ((UpdateAction)arg) {
+            case NEW_GAME:
+            case CHECK:
+                bgNumbers.clearSelection();
+                break;
+        }
+    }
 
+    /**
+     * Adds controller to all components.
+     *
+     * @param buttonController  Controller which controls all user actions.
+     */
+    public void setController(ButtonController buttonController) {
+        btnNew.addActionListener(buttonController);
+        btnCheck.addActionListener(buttonController);
+        btnExit.addActionListener(buttonController);
+        cbHelp.addActionListener(buttonController);
+        for (int i = 0; i < 9; i++)
+            btnNumbers[i].addActionListener(buttonController);
     }
 }

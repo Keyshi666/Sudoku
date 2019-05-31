@@ -1,7 +1,10 @@
 package sudoku.view;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 
 /**
  * This class represents a field on the SudokuPanel.
@@ -22,7 +25,7 @@ public class Field extends JLabel {
         super("", CENTER);
         this.x = x;
         this.y = y;
-        
+
         setPreferredSize(new Dimension(40, 40));
         setBorder(BorderFactory.createLineBorder(Color.GRAY));
         setFont(new Font(Font.DIALOG, Font.PLAIN, 20));
@@ -46,7 +49,7 @@ public class Field extends JLabel {
      * @return  X position in game.
      */
     public int getFieldX() {
-        return this.x;
+        return x;
     }
 
     /**
@@ -55,6 +58,6 @@ public class Field extends JLabel {
      * @return  Y position in game.
      */
     public int getFieldY() {
-        return this.y;
+        return y;
     }
 }

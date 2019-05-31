@@ -75,6 +75,7 @@ public class Game extends Observable {
         this.selectedNumber = selectedNumber;
         setChanged();
         notifyObservers(UpdateAction.SELECTED_NUMBER);
+        //if()
     }
 
     /**
@@ -298,7 +299,8 @@ public class Game extends Observable {
     }
 
     /**
-     *
+     * Checks whether given game is valid, user should use the other isValid
+     * method. There may only be one solution.
      *
      * @param game                  Game to check.
      * @param index                 Current index to check.

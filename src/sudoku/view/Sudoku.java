@@ -1,8 +1,9 @@
 package sudoku.view;
 
 import java.awt.BorderLayout;
-import javax.swing.JFrame;
-import javax.swing.UIManager;
+import javax.swing.*;
+import sudoku.controller.ButtonController;
+import sudoku.controller.SudokuController;
 import sudoku.model.Game;
 
 /**
@@ -18,11 +19,15 @@ public class Sudoku extends JFrame {
 
         Game game = new Game();
 
+        ButtonController buttonController = new ButtonController(game);
         ButtonPanel buttonPanel = new ButtonPanel();
+        buttonPanel.setController(buttonController);
         add(buttonPanel, BorderLayout.EAST);
 
         SudokuPanel sudokuPanel = new SudokuPanel();
+        SudokuController sudokuController = new SudokuController(sudokuPanel, game);
         sudokuPanel.setGame(game);
+        sudokuPanel.setController(sudokuController);
         add(sudokuPanel, BorderLayout.CENTER);
 
         game.addObserver(buttonPanel);

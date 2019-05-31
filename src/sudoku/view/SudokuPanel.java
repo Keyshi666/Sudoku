@@ -6,9 +6,9 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import sudoku.controller.SudokuController;
 import sudoku.model.Game;
 import sudoku.model.UpdateAction;
-
 
 /**
  * This class draws the sudoku panel and reacts to updates from the model.
@@ -102,7 +102,6 @@ public class SudokuPanel extends JPanel implements Observer {
      *
      * @param game  Current game.
      */
-
     private void setCandidates(Game game) {
         for (int y = 0; y < 9; y++) {
             for (int x = 0; x < 9; x++) {
@@ -112,7 +111,12 @@ public class SudokuPanel extends JPanel implements Observer {
             }
         }
     }
-
+    public void setController(SudokuController sudokuController) {
+        for (int y = 0; y < 3; y++) {
+            for (int x = 0; x < 3; x++)
+                panels[y][x].addMouseListener(sudokuController);
+        }
+    }
     /**
      * Adds controller to all sub panels.
      *

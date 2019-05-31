@@ -29,7 +29,7 @@ cd /d "%CURRENT_DIR_PATH%"
 
 rmdir /s /q "%OUT_DIR_NAME%" 2>nul
 mkdir "%OUT_PROJECT_PATH%" "%OUT_BIN_PATH%" "%OUT_JRE_PATH%" "%OUT_LIB_PATH%"
-for %%a in (INSTALL LICENSE README.md) do copy /y %%a "%OUT_PROJECT_PATH%" >nul
+for %%a in (INSTALL LICENSE README) do copy /y %%a "%OUT_PROJECT_PATH%" >nul
 
 :: compile
 javac -sourcepath src -encoding UTF-8 "%MAIN_JAVA_PATH%" -d "%OUT_LIB_PATH%"
